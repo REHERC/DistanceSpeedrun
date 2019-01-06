@@ -46,7 +46,7 @@ namespace DistanceSpeedrun
                         overheat = $"{overheat} %";
 
                         float treshold = 0.7f;
-                        float lerp = Global.Overheat > treshold ? Mathf.Clamp(Extensions.Map(Global.Overheat, treshold, 1, 0, 0.8),0, 1) : 0;
+                        float lerp = Global.Overheat > treshold ? Mathf.Clamp(Extensions.Map(Global.Overheat, treshold, 1, 0, 0.8f),0, 1) : 0;
 
                         Color color = Color.Lerp(Color.white, Color.red, lerp);
                         color *= 0.95f;
