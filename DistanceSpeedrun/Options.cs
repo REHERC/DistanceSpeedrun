@@ -1,10 +1,7 @@
 ﻿using Spectrum.API.Configuration;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-#pragma warning disable IDE0044 
+#pragma warning disable IDE0044
 namespace DistanceSpeedrun
 {
     static class Options
@@ -16,7 +13,8 @@ namespace DistanceSpeedrun
             Data = new Settings("Config");
             Dictionary<string, object> DefaultSettings = new Dictionary<string, object>()
             {
-                {"Enabled", false}
+                {"Enabled", false},
+                {"TimerFreezeDuration", 0.75f}
             };
             foreach (KeyValuePair<string, object> item in DefaultSettings)
                 if (!Data.ContainsKey<string>(item.Key))

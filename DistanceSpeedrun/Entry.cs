@@ -3,7 +3,6 @@ using Spectrum.API.Interfaces.Plugins;
 using Spectrum.API.Interfaces.Systems;
 using System;
 using System.Reflection;
-using UnityEngine.SceneManagement;
 
 namespace DistanceSpeedrun
 {
@@ -14,7 +13,6 @@ namespace DistanceSpeedrun
             try
             {
                 Options.SetupDefaults();
-                Timer.Initialize();
                 HarmonyInstance Harmony = HarmonyInstance.Create($"com.REHERC.Speedrunning");
                 Harmony.PatchAll(Assembly.GetExecutingAssembly());
             }
@@ -24,18 +22,19 @@ namespace DistanceSpeedrun
             }
 
             Events.GameMode.Go.Subscribe((data) => {
-                Timer.Start();
+                Timer.Start(true);
             });
 
             Events.RaceEnd.LocalCarHitFinish.Subscribe((data) => {
-                Timer.Pause();
+                Timer.Pause(true);
+                
             });
 
             Events.Game.PauseToggled.Subscribe((data) => {
                 if (data.paused_)
-                    Timer.Pause();
-                else
-                    Timer.Start();
+                    Timer.Pause(false);
+                else if (Timex.ModeTime_ >= 0.0d && !G.Sys.GameManager_.RestartingLevel_)
+                    Timer.Start(false);
             });
         }
     }
